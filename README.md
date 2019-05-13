@@ -2,13 +2,15 @@
 
 This project aims at building a CNN model with TensorFlow using a dataset of 17500 images of cactus to predict whether a low-resolution image contains a cactus. 
 
+The data can be accessed here: [Data] (https://www.kaggle.com/c/aerial-cactus-identification/data)
+
 ## Architecture of CNN
 
 The first is the tensorboard graph of CNN. The second one is the flowchart of CNN using VALID as padding. This model consists of one input layer, two convolutional layers, one pooling layers, one fully connected layer accompanied by one dropout layer, and one output layer.
 
 <img width="409" alt="tensorboard_graph" src="https://user-images.githubusercontent.com/42804316/57631001-a5cb6980-756c-11e9-9b58-b02f9488470f.png"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="241" alt="Screen Shot 2019-04-07 at 9 44 55 AM" src="https://user-images.githubusercontent.com/42804316/57630424-91d33800-756b-11e9-8978-3db12e98cfc4.png">
 
-Detailed dimension description:
+**Detailed dimension description**:
 * Input layer: the height (H), width (W), and channels of each colorful image 32 by 32 by 3.
 * The output of the first convolutional layer: the filter size (F) is 3, the striding (S) is 1, and the number of filters is 36, so the output dimension  is 30 by 30 by 36 (Equation used: (W-F)/S +1= (32-3)/1 +1 = 30).
 * The output of the second convolutional layer: the input dimension is 30 by 30 by 36, the filter size (F) is 3, the striding (S) is 1, and the number of filters is 72, so the output dimension is 28 by 28 by 72 (Equation used: (W-F)/S +1= (30-3)/1 +1 = 28).
