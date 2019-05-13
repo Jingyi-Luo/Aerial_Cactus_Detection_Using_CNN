@@ -27,7 +27,7 @@ Accuracy For Training and Testing Data (tensorboard graph with epochs):
 Loss For Training and Testing Data (tensorboard graph with epochs):
 <img width="573" alt="loss_train_valid" src="https://user-images.githubusercontent.com/42804316/57633065-e2995f80-7570-11e9-9517-3f174371f0c7.png">
 
-*----------------------------------------
+----------------------------------------
 The project comes from Kaggle competition. When use this model to predict a fresh new dataset from Kaggle, the accuracy reaches 99% and ranks 195 among all the competitors (April, 2019)
 
 Snapshot from Kaggle Competition:
