@@ -8,7 +8,27 @@ The first is the tensorboard graph of CNN. The second one is the flowchart of CN
 
 <img width="409" alt="tensorboard_graph" src="https://user-images.githubusercontent.com/42804316/57631001-a5cb6980-756c-11e9-9b58-b02f9488470f.png"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="241" alt="Screen Shot 2019-04-07 at 9 44 55 AM" src="https://user-images.githubusercontent.com/42804316/57630424-91d33800-756b-11e9-8978-3db12e98cfc4.png">
 
-For the The height, width and chanels of the input is 32*32*3.  The first convolutional layer has 36 filters and the second layer has 72 filters. For both convolutional layers, the kernel size is three, stride is one, padding is SAME, and Relu is used as the activation function. In the max pooling, a kernel of 2*2 and a stride of 2*2 are adopted to reduce the dimensionality of feature maps to the half. Then, the outputs from the pooling layer are reshaped back to 1-d vector for the fully connected layer. The fully connected layer has 128 units and uses Relu as the activation function. In order to decrease the overfitting, the dropout layer with the dropout rate of 0.5 is applied. The number of outputs in the output layer is two because of two classes. By using the sigmoid activation function, their probability can be obtained. Finally, the cross entropy is used to calculate the loss and the Adam optimizer is used to optimized the parameters (weights and bias) of the model. 
+Detailed dimension description:
+* Input layer: the height (H), width (W), and channels of each colorful image 32 by 32 by 3.
+* The output of the first convolutional layer: the filter size (F) is 3, the striding (S) is 1, and the number of filters is 36, so the output dimension  is 30 by 30 by 36 (Equation used: (W-F)/S +1= (32-3)/1 +1 = 30).
+* The output of the second convolutional layer: the input dimension is 30 by 30 by 36, the filter size (F) is 3, the striding (S) is 1, and the number of filters is 72, so the output dimension is 28 by 28 by 72 (Equation used: (W-F)/S +1= (30-3)/1 +1 = 28).
+* The output of the max-pooling layer: the input dimension is 28 by 28 by 72. The filter size (F) is two and the striding (S) is two. Max-pooling doen't change the number of channels, so the output dimension is 14*14*72 (Equation used: (W-F)/S +1= (28-2)/2 +1 = 14).
+* The output of the reshaped vector for fully connected layer: its dimension is 1*14112 that is obtained from the product of 14, 14 and 72 from the output of the pooling layer.
+* The output of the fully connected layer: the fully connected layer has 128 units, so its output dimension is 128.
+* The output layer with the sigmoid function: the predicted classes are two, so this layer’s dimension is two.
+
+## Results
+
+The effect of padding (VALID, SAME), optimization (Gradient Descent, and Adam optimizer), number of convolutional layers have been investigated to increase model's accuracy. The optimized architecture obtained the accuracy of 99.6% for test set and 99.7% for training set as shown below.
+
+<img width="560" alt="accuracy_train_valid" src="https://user-images.githubusercontent.com/42804316/57632966-b7167500-7570-11e9-9cbb-782215854ce7.png">  <img width="573" alt="loss_train_valid" src="https://user-images.githubusercontent.com/42804316/57633065-e2995f80-7570-11e9-9517-3f174371f0c7.png">
+
+When use this model to predict a fresh new dataset in the kaggle competition, the accuracy reaches 99% and ranks 195 among all the competitors (April, 2019)
+
+![195_0 99_kaggle](https://user-images.githubusercontent.com/42804316/57634270-fba31000-7572-11e9-9634-5491a9fe7780.png)
+
+
+
 
 
 
