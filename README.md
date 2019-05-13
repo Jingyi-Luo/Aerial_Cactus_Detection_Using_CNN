@@ -29,6 +29,7 @@ Loss For Training and Testing Data (tensorboard graph with epochs):
 
 The project comes from Kaggle competition. When use this model to predict a fresh new dataset from Kaggle, the accuracy reaches 99% and ranks 195 among all the competitors (April, 2019)
 
+Snapshot from Kaggle Competition:
 ![195_0 99_kaggle](https://user-images.githubusercontent.com/42804316/57634270-fba31000-7572-11e9-9634-5491a9fe7780.png)
 
 
