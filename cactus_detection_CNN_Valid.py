@@ -1,6 +1,6 @@
 # Kaggle competition: Aerial Cactus Identification
 # Jingyi Luo
-# Padding: SAME
+# Padding: VALID
 
 import math
 import cv2
@@ -25,12 +25,12 @@ channels = 3
 conv1_fmaps = 36
 conv1_ksize = 3
 conv1_stride = 1
-conv1_pad = 'SAME'
+conv1_pad = 'VALID'
 
 conv2_fmaps = 72
 conv2_ksize = 3
 conv2_stride = 1
-conv2_pad = 'SAME'
+conv2_pad = 'VALID'
 
 # Define a pooling layer
 pool3_dropout_rate = 0.25
@@ -54,18 +54,18 @@ with tf.name_scope("inputs"):
     y = tf.placeholder(tf.float32, shape=[None, n_outputs], name="y")   # tf.float32
     training = tf.placeholder_with_default(False, shape=[], name='training') # placeholder for training, default value is False
 
-# Step 3: Set up the two convolutional layers using tf.layers.conv2d                   # dimension of X: 32*32*3
-conv1 = tf.layers.conv2d(X, filters=conv1_fmaps, kernel_size=conv1_ksize,              # dimension (after conv1): 32*32*36
+# Step 3: Set up the two convolutional layers using tf.layers.conv2d          # dimension of X: 32*32*3
+conv1 = tf.layers.conv2d(X, filters=conv1_fmaps, kernel_size=conv1_ksize,     # dimension (after conv1): 30*30*36
                          strides=conv1_stride, padding=conv1_pad, activation=tf.nn.relu,
                          name='conv1')
-conv2 = tf.layers.conv2d(conv1, filters=conv2_fmaps, kernel_size=conv2_ksize,          # dimension (after conv2): 32*32*72
+conv2 = tf.layers.conv2d(conv1, filters=conv2_fmaps, kernel_size=conv2_ksize, # dimension (after conv2): 28*28*72
                          strides=conv2_stride, padding=conv2_pad, activation=tf.nn.relu,
                          name='conv2')
 
 # Step 4: Set up the pooling layer with dropout using tf.nn.max_pool
 with tf.name_scope("pool3"):
-    pool3 = tf.nn.max_pool(conv2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding="VALID") # dimension (after pooling): 16*16*72
-    pool3_flat = tf.reshape(pool3, shape=[-1, pool3_fmaps*16*16]) # will go to fully connected dense layers, so reshape to 1-d tensor
+    pool3 = tf.nn.max_pool(conv2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding="VALID") # dimension (after pooling): 14*14*72
+    pool3_flat = tf.reshape(pool3, shape=[-1, pool3_fmaps*14*14]) # will go to fully connected dense layers, so reshape to 1-d tensor
     pool3_flat_drop = tf.layers.dropout(pool3_flat, pool3_dropout_rate, training=training) # training placeholder, False.
 
 # Step 5: Set up the fully connected layer using tf.layers.dense
@@ -182,7 +182,7 @@ def restore_model_params(model_params): # resort parameter for that step of trai
     tf.get_default_session().run(assign_ops, feed_dict=feed_dict)
 
 # Step 10: Define training and evaluation parameters
-n_epochs = 2  # 20
+n_epochs = 18
 batch_size = 50
 iteration = 0
 
@@ -194,12 +194,12 @@ best_model_params = None
 
 # ----------- The codes for writing graph to tensorboard ----------------------
 # a writer to write the CNN graph tensorboard
-#writer = tf.summary.FileWriter('./graphs/computation_graphs_padding', tf.get_default_graph())
+writer = tf.summary.FileWriter('./graphs/computation_graph_nonpadding', tf.get_default_graph())
 
 # For loss/accuracy with epoches on Tensorboard
-#merged = tf.summary.merge_all()
-#train_writer = tf.summary.FileWriter('./graphs/train_padding_SAME', tf.get_default_graph()) # train_dropout_0.2 #train_layer_2
-#test_writer = tf.summary.FileWriter('./graphs/test_padding_SAME', tf.get_default_graph())
+merged = tf.summary.merge_all()
+train_writer = tf.summary.FileWriter('./graphs/train_padding_VALID', tf.get_default_graph()) # train_dropout_0.2 #train_layer_2
+test_writer = tf.summary.FileWriter('./graphs/test_padding_VALID', tf.get_default_graph())
 # -----------------------------------------------------------------------------
 
 # Step 11: Train and evaluate CNN with Early Stopping procedure defined at the very top
@@ -228,22 +228,22 @@ with tf.Session() as sess:
 
 # ----------- The codes for writing graph to tensorboard ----------------------
         # measure validation accuracy, and write validate summaries to FileWriters
-#        test_summary, acc = sess.run([merged, accuracy], feed_dict={X: x_val, y: y_val})
-#        test_writer.add_summary(test_summary, epoch)
-#        print('Accuracy at step %s: %s' % (epoch, acc))
+        test_summary, acc = sess.run([merged, accuracy], feed_dict={X: x_val, y: y_val})
+        test_writer.add_summary(test_summary, epoch)
+        print('Accuracy at step %s: %s' % (epoch, acc))
 
         # run training_op on training data, and add training summaries to FileWriters
-#        train_summary, _ = sess.run([merged, training_op], feed_dict={X:X_batch, y:y_batch}) # , training_op
-#        train_writer.add_summary(train_summary, epoch)
+        train_summary, _ = sess.run([merged, training_op], feed_dict={X:X_batch, y:y_batch}) # , training_op
+        train_writer.add_summary(train_summary, epoch)
 
-#    train_writer.close()
-#    test_writer.close()
+    train_writer.close()
+    test_writer.close()
 # -----------------------------------------------------------------------------
 
     if best_model_params:
         restore_model_params(best_model_params)
     save_path = saver.save(sess, "./model_optimization/my_model_final.ckpt")
-#writer.close()
+writer.close()
 
 # ------------------------ Test set prediction --------------------------------
 with tf.Session() as sess:
