@@ -8,7 +8,7 @@ The data can be accessed here: [Data](https://www.kaggle.com/c/aerial-cactus-ide
 
 The first is the tensorboard graph of CNN. The second one is the flowchart of CNN using VALID as padding. This model consists of one input layer, two convolutional layers, one pooling layers, one fully connected layer accompanied by one dropout layer, and one output layer.
 
-<img width="50%" alt="tensorboard_graph" src="https://user-images.githubusercontent.com/42804316/57631001-a5cb6980-756c-11e9-9b58-b02f9488470f.png"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="50%" alt="Screen Shot 2019-04-07 at 9 44 55 AM" src="https://user-images.githubusercontent.com/42804316/57630424-91d33800-756b-11e9-8978-3db12e98cfc4.png"><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fig. Tensorboard Computational Graph (left) and Simplified Flowchart (right)
+<img width="50%" alt="tensorboard_graph" src="https://user-images.githubusercontent.com/42804316/57631001-a5cb6980-756c-11e9-9b58-b02f9488470f.png"><img width="50%" alt="Screen Shot 2019-04-07 at 9 44 55 AM" src="https://user-images.githubusercontent.com/42804316/57630424-91d33800-756b-11e9-8978-3db12e98cfc4.png"><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fig. Tensorboard Computational Graph (left) and Simplified Flowchart (right)
 
 **Detailed dimension description**:
 * Input layer: the height (H), width (W), and channels of each colorful image 32 by 32 by 3.
@@ -23,7 +23,7 @@ The first is the tensorboard graph of CNN. The second one is the flowchart of CN
 
 The effect of padding (VALID, SAME), optimization (Gradient Descent, and Adam optimizer), number of convolutional layers have been investigated to increase model's accuracy. Based on the optimized architecture, the training set obtained the accuray of 100% and the loss of 0.00088, and the test set obtained the accuracy of 99.7% and and the loss of 0.0096 as shown below.
 
-<img width="560" alt="accuracy_train_valid" src="https://user-images.githubusercontent.com/42804316/57632966-b7167500-7570-11e9-9cbb-782215854ce7.png"><img width="573" alt="loss_train_valid" src="https://user-images.githubusercontent.com/42804316/57633065-e2995f80-7570-11e9-9517-3f174371f0c7.png"><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accuracy (left) and Loss (right) For Training and Testing Data With Epochs (graph from tensorboard)
+<img width="50%" alt="accuracy_train_valid" src="https://user-images.githubusercontent.com/42804316/57632966-b7167500-7570-11e9-9cbb-782215854ce7.png"><img width="50%" alt="loss_train_valid" src="https://user-images.githubusercontent.com/42804316/57633065-e2995f80-7570-11e9-9517-3f174371f0c7.png"><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accuracy (left) and Loss (right) For Training and Testing Data With Epochs (graph from tensorboard)
 
 ----------------------------------------
 The project comes from Kaggle competition. When use this model to predict a fresh new dataset from Kaggle, the accuracy reaches 99% and ranks 195 among all the competitors (April, 2019)
